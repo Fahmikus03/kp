@@ -15,9 +15,8 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->guest() || auth()->user()->role_id !== 1) {
-            abort(403);
-        }
+        if(auth()->guest()) return redirect()->route('login');
+        if(auth()->user()->role_id !== 1) return abort(403);
         return $next($request);
     }
 }
