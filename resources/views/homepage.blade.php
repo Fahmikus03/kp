@@ -18,7 +18,6 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('asset/Arsha/css/custom.css') }}">
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/Arsha/vendor/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/Arsha/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -37,29 +36,33 @@
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top ">
         <div class="container d-flex align-items-center">
-
-            <h1 class="logo me-auto"><a href="index.html">Pengaduan</a></h1>
+            <h1 class="logo me-auto"><a href="/">Pengaduan</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
                     @if (auth()->check())
+                        @if (auth()->user()->role_id == 1)
+                            <li><a class="nav-link scrollto" href="{{ route('dashboard.admin') }}">Dashboard</a></li>
+                        @elseif(auth()->user()->role_id == 3)
+                            <li><a class="nav-link scrollto" href="{{ route('dashboard.leader') }}">Dashboard</a></li>
+                        @elseif(auth()->user()->role_id == 2)
+                            <li><a class="nav-link scrollto" href="{{ route('form-complaint') }}">Pengaduan</a></li>
+                        @endif
                         <form method="post" action="/logout">
                             @csrf
-                            <li><button type="submit" class="getstarted scrollto">Logout</button></li>
+                            <li><button type="submit"
+                                    class="btn btn-outline-primary getstarted scrollto">Logout</button></li>
                         </form>
                     @else
                         <li><a class="getstarted scrollto" href="/login">Login</a></li>
                     @endif
-
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
-
         </div>
     </header><!-- End Header -->
 
@@ -74,7 +77,7 @@
                     <h2>Sampaikan laporan Anda langsung kepada instansi pemerintah berwenang
                     </h2>
                     <div class="d-flex justify-content-center justify-content-lg-start">
-                        <a href="society-form-complaint" class="btn-get-started scrollto">Pengaduan</a>
+                        <a href="{{ route('form-complaint') }}" class="btn-get-started scrollto">Pengaduan</a>
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
@@ -85,7 +88,6 @@
     </section><!-- End Hero -->
 
     <main id="main">
-
         <!-- ======= About Us Section ======= -->
         <section id="about" class="about">
             <div class="container" data-aos="fade-up">
@@ -94,13 +96,7 @@
                 </div>
                 <div class="row content">
                     <div class="col-lg-6 mx-auto pt-4 pt-lg-0">
-                        <p>
-                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in
-                            voluptate
-                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum.
+                        <p>{{ $info[0]->about }}
                         </p>
                     </div>
                 </div>
@@ -154,25 +150,12 @@
                     <div class="col-lg-3 col-md-6 footer-contact ">
                         <h3>Pengaduan</h3>
                         <p>
-                            A108 Adam Street <br>
-                            New York, NY 535022<br>
-                            Amerika Serikat <br><br>
-                            <strong>Telepon:</strong> +1 5589 55488 55<br>
-                            <strong>Email:</strong> info@example.com<br>
+                            {{ $info[0]->street }} <br>
+                            {{ $info[0]->address }}<br>
+                            {{ $info[0]->country }} <br><br>
+                            <strong>Telepon:</strong> {{ $info[0]->phone }}<br>
+                            <strong>Email:</strong> {{ $info[0]->email }}<br>
                         </p>
-                    </div>
-                    <!-- Bagian Tautan Footer -->
-                    <div class="col-lg-3 col-md-6 footer-links ">
-                        <h4>Jaringan Sosial Kami</h4>
-                        <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-                        <!-- Tautan Sosial -->
-                        <div class="social-links mt-3">
-                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                        </div>
                     </div>
                 </div>
             </div>

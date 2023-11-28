@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Type_of_complaint;
 
-class Type_if_complaint extends Seeder
+class TypeOfComplaintSeeder extends Seeder
 {
     /**
      * Run the database seeds.

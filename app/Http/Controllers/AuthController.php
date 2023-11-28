@@ -26,7 +26,7 @@ class AuthController extends Controller
                 return redirect()->intended('dashboard/admin/dashboard');
             }elseif(Auth()->user()->role_id == 2){
                 $request->session()->regenerate();
-                return redirect()->intended('society/form-complaint');
+                return redirect()->intended('/');
             }elseif(Auth()->user()->role_id == 3){
                 $request->session()->regenerate();
                 return redirect()->intended('dashboard/leader/dashboard');

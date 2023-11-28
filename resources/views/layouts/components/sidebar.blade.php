@@ -1,9 +1,14 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="{{ asset('assets/AdminLTE/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    @if (auth()->user()->role_id == 1)
+        <a href="{{ route('dashboard.admin') }}" class="brand-link">
+        @elseif(auth()->user()->role_id == 3)
+            <a href="{{ route('dashboard.leader') }}" class="brand-link">
+    @endif
+
+    <img src="{{ asset('assets/AdminLTE/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+        class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">Pengaduan Online</span>
     </a>
 
     <!-- Sidebar -->
@@ -25,6 +30,13 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
+                @if(auth()->user()->role_id == 1)
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.admin') }}" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Beranda</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tree"></i>
@@ -53,7 +65,20 @@
                             </a>
                         </li>
                     </ul>
+                <li class="nav-item">
+                    <a href="{{ route('web-setting') }}" class="nav-link">
+                        <i class="nav-icon far fa-edit"></i>
+                        <p>Web Setting</p>
+                    </a>
                 </li>
+                @elseif(auth()->user()->role_id == 3)
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.leader') }}" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Beranda</p>
+                    </a>
+                </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

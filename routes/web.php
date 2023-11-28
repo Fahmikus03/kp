@@ -23,18 +23,22 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['isAdmin'])->group(function () {
     Route::controller(DashboardAdminController::class)->group(function () {
-        Route::get('/dashboard/admin/dashboard', 'index');
+        Route::get('/dashboard/admin/dashboard', 'index')->name('dashboard.admin');
+        Route::get('/dashboard/admin/dashboard/setting', 'webSetting')->name('web-setting');
+        Route::get('/dashboard/admin/dashboard/setting/edit', 'webSettingEdit')->name('web-setting.edit');
+        Route::post('/dashboard/admin/dashboard/setting/update', 'webSettingUpdate')->name('web-setting.update');
     });
 });
 
 Route::middleware(['isLeader'])->group(function () {
     Route::controller(DashboardLeaderController::class)->group(function () {
-        Route::get('/dashboard/leader/dashboard', 'index');
+        Route::get('/dashboard/leader/dashboard', 'index')->name('dashboard.leader');
     });
 });
 
 Route::middleware(['isSociety'])->group(function () {
     Route::controller(FormComplaintController::class)->group(function () {
-        Route::get('/society-form-complaint', 'formComplaint');
+        Route::get('/society-form-complaint', 'formComplaint')->name('form-complaint');
+        Route::post('/society-form-complaint-store', 'formComplaintStore')->name('form-complaint.store');
     });
 });
