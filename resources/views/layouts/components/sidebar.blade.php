@@ -67,8 +67,13 @@
                     </ul>
                 <li class="nav-item">
                     <a href="{{ route('web-setting') }}" class="nav-link">
-                        <i class="nav-icon far fa-edit"></i>
+                        <i class="nav-icon fas fa-edit"></i>
                         <p>Web Setting</p>
+                    </a>
+                </li><li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>Back to website</p>
                     </a>
                 </li>
                 @elseif(auth()->user()->role_id == 3)
